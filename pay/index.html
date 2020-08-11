@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <script>
+    </script>
+    <style>
+
+svg{
+  width: 100px;
+  height: 100px;
+  margin: 20px;
+  display:inline-block;
+}
+
+.center-vertical {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  border: 0px solid green;
+}
+
+h1{
+font-size:70px;
+}
+    </style>
+    
+    
+  </head>
+
+  <body onload="getClientInfo()">
+  <div id='loading-screen' style="background-color:#ededed;width:100vw;height:100vh" class="center-vertical" hidden>
+  
+  <div id="loading-preloader">
+  <div class="preloader-wrapper big active">
+      <div class="spinner-layer spinner-blue">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-red">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-yellow">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+
+      <div class="spinner-layer spinner-green">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+    <p><i>Loading...</i></p>
+    </div>
+    <div class="hide" id="loading-paid"><i>This bill has already been paid.</i></div>
+    <div class="hide" id="loading-error"><i><p class="center">There was an error loading your bill.</p><p class="center">Please check that you have the correct link and try again.</p></i></div>
+  
+  </div>
+  
+  <div id='main-screen' hidden>
+  
+  
+  <div class="navbar-fixed hide-on-med-and-down">
+  <nav>
+    <div class="nav-wrapper lime">
+      <a href="#" class="brand-logo center" id="title-header">Company Secure Billing</a>
+    </div>
+  </nav>
+  </div>
+  
+  <div class="center hide-on-large-only color1"><br><h1 class="color2">Company Secure Billing</h1><br></div>
+  
+  <br>
+  
+ <div class="row">
+   <div class="col s1 m1 l4"></div>
+   <div class="col s10 m10 l4">
+     <div class="card blue-grey lighten-5">
+     <br>
+       <div class="center-align s2">
+         <img class="z-depth-2" id="logo-img" src="https://lh3.googleusercontent.com/ogw/ADGmqu-3m6pocYgHOkYJKuw6te6z86oCbpIGQDgwh6aS=s83-c-mo" style="height:65px;border-radius:10px">
+       </div>
+       
+       <div class="card-content black-text" id="screen0">
+         <span class="card-title hide-on-med-and-down">Confirm Email Address:</span>
+         <span class="card-title hide-on-large-only"><h3>Confirm Email Address:</h3></span>
+         <br>
+         <label for="email">Email</label>
+         <input id="email" type="email" class="validate">
+         <i style="color:red" id="email-error" hidden>Invalid email: Please enter the email to which you were sent your bill.</i>
+         <br>
+         <a class="waves-effect waves-light btn-large right hide-on-large-only color2 color1" onclick="submit()"><h5><i class="material-icons left">verified_user</i>Submit</h5></a>
+         <a class="waves-effect waves-light btn-small right hide-on-med-and-down color2 color1" onclick="submit()"><i class="material-icons left">verified_user</i>Submit</a>
+         <br>
+         <br>
+       </div>
+       
+       <div class="card-content black-text" id="screen1" hidden>
+         <div class="row">
+           <div class="col s3 m4"></div>
+           <div clss="col s6 m4">
+             <svg version="1.1" id="L7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+               <path fill="#000" d="M31.6,3.5C5.9,13.6-6.6,42.7,3.5,68.4c10.1,25.7,39.2,38.3,64.9,28.1l-3.1-7.9c-21.3,8.4-45.4-2-53.8-23.3c-8.4-21.3,2-45.4,23.3-53.8L31.6,3.5z">
+                 <animateTransform 
+                   attributeName="transform" 
+                   attributeType="XML" 
+                   type="rotate"
+                   dur="2s" 
+                   from="0 50 50"
+                   to="360 50 50" 
+                   repeatCount="indefinite" />
+               </path>
+               <path fill="#000" d="M42.3,39.6c5.7-4.3,13.9-3.1,18.1,2.7c4.3,5.7,3.1,13.9-2.7,18.1l4.1,5.5c8.8-6.5,10.6-19,4.1-27.7c-6.5-8.8-19-10.6-27.7-4.1L42.3,39.6z">
+                 <animateTransform 
+                   attributeName="transform" 
+                   attributeType="XML" 
+                   type="rotate"
+                   dur="1s" 
+                   from="0 50 50"
+                   to="-360 50 50" 
+                   repeatCount="indefinite" />
+               </path>
+               <path fill="#000" d="M82,35.7C74.1,18,53.4,10.1,35.7,18S10.1,46.6,18,64.3l7.6-3.4c-6-13.5,0-29.3,13.5-35.3s29.3,0,35.3,13.5L82,35.7z">
+                 <animateTransform 
+                   attributeName="transform" 
+                   attributeType="XML" 
+                   type="rotate"
+                   dur="2s" 
+                   from="0 50 50"
+                   to="360 50 50" 
+                   repeatCount="indefinite" />
+               </path>
+             </svg>
+           </div>
+           <div class="col s3 m4"></div>
+         </div>
+         <p class="center"><i>Loading...</i></p>
+       </div>
+       
+       <div class="card-content black-text" id="screen2" hidden>
+         <span class="card-title center"><h1 id="total">$20.00</h1></span>
+         <br>
+         <div class="row" id="breakdown" hidden>
+           <div class="col s2"></div>
+           <div class="col s8">
+             <table class="highlight">
+               <tbody>
+                 <tr><td>Subtotal:</td><td id="subtotal">$19.00</td></tr>
+                 <tr><td>Service Fee:</td><td id="serviceFee">$1.00</td></tr>
+               </tbody>
+             </table>
+           </div>
+           <div class="col s2"></div>
+         </div>
+         <br>
+         <p class="center flow-text">"<i id="memo">This is the memo by the company.</i>"</p>
+         <br>
+         <div class="row">
+           <div class="col s12">
+             <div id="paypal-button-container"></div>
+           </div>
+         </div>
+       </div>
+       
+       <div class="card-content black-text" id="screen3" hidden>
+         <span class="card-title center">Done!</span>
+         <br>
+         <div class="row center">
+           <i class="large material-icons" style="font-size:200px;color:green">check</i>
+         </div>
+         <br>
+         <p class="center"><i>You are free to close this tab.</i></p>
+       </div>
+       
+       <div class="card-action center" hidden>
+         <a href="#" class="light-green-text text-accent-4">Report Problem</a>
+         <a href="#" class="light-green-text text-accent-4">Contact Us</a>
+       </div>
+     </div>
+   </div>
+   <div class="col s1 m1 l4"></div>
+ </div>
+    </div>
+    <script id="payPalScript" data-sdk-integration-source="button-factory"></script>
+    <script>
+  function payPal() {
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'paypal',
+          
+      },
+      createOrder: function(data, actions) {
+          return actions.order.create({
+              purchase_units: [{
+                  amount: {
+                      value: document.getElementById('value').innerHTML
+                  }
+              }]
+          });
+      },
+      onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+              //log details
+              var details2 = JSON.stringify(details)
+              var id = getTransactionID()
+              fetch('https://script.google.com/macros/s/AKfycbzdPusqlLI6KHe8bRcrG4zQhjd9XN3G5Ds0QcZ9beVfVNtu0Pc/exec?action=logPaid&id='+id+'&details='+details2)
+              document.getElementById('screen2').setAttribute('hidden','true')
+              document.getElementById('screen3').removeAttribute('hidden')
+          });
+      }
+  }).render('#paypal-button-container');
+  }
+  
+  function getTransactionID() {
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    if (urlParams.has('id')) {
+      var id = urlParams.get('id')
+      return id
+    }
+    else {
+      //location.href="https://secure-payments.a2egroup.us"
+    }
+  }
+  
+  function submit() {
+    
+    var email = document.getElementById('email').value
+    document.getElementById('screen0').setAttribute('hidden','true')
+    document.getElementById('screen1').removeAttribute('hidden')
+    if (document.getElementById('ready').innerHTML!='yes') {
+      setTimeout(submit,500)
+    }
+    else {
+    var id = getTransactionID()
+    fetch('https://script.google.com/macros/s/AKfycbzdPusqlLI6KHe8bRcrG4zQhjd9XN3G5Ds0QcZ9beVfVNtu0Pc/exec?action=getBill&id='+id+'&email='+email)
+    .then(
+    function(response) {
+      response.json().then(function(data) {
+        if (data.status == "success") {
+        
+          document.getElementById('total').innerHTML=data.total
+          document.getElementById('subtotal').innerHTML=data.subtotal
+          document.getElementById('value').innerHTML=data.value
+          document.getElementById('memo').innerHTML=data.memo
+        
+          if (data.fee != 'none') {
+            document.getElementById('serviceFee').innerHTML=data.fee
+            document.getElementById('breakdown').removeAttribute('hidden')
+          }
+        
+          payPal()
+          document.getElementById('screen1').setAttribute('hidden','true')
+          document.getElementById('screen2').removeAttribute('hidden')
+        }
+        else {
+          document.getElementById('email-error').removeAttribute('hidden')
+          document.getElementById('screen1').setAttribute('hidden','true')
+          document.getElementById('screen0').removeAttribute('hidden')
+        }
+      });
+    }
+  ).catch(function(error){window.alert('Error loading data. Please refresh.')})
+  }}
+  
+  function getClientInfo() {
+    //segment only for testing
+    document.getElementById('loading-screen').className+=" hide"
+    document.getElementById('main-screen').removeAttribute('hidden')
+    //end testing segment
+    
+    var id = getTransactionID()
+    fetch('https://script.google.com/macros/s/AKfycbzdPusqlLI6KHe8bRcrG4zQhjd9XN3G5Ds0QcZ9beVfVNtu0Pc/exec?action=getClientInfo&id='+id)
+    .then(
+    function(response) {
+      response.json().then(function(data) {
+        if (data.status=="success") {
+          document.getElementById('ready').innerHTML='yes'
+          document.getElementById('payPalScript').src="https://www.paypal.com/sdk/js?client-id="+data.clientID+"&currency=USD"
+          var divs1 = document.getElementsByClassName('color1')
+          for (var i = 0; i<divs1.length; i++) {
+            divs1[i].style.backgroundColor=data.color1
+          }
+          var divs2 = document.getElementsByClassName('color2')
+          for (var i = 0; i<divs2.length; i++) {
+            divs2[i].style.color=data.color2
+          }
+          document.getElementById('title-header').innerHTML=data.name+" Secure Billing"
+          document.getElementById('logo-img').src=data.logo
+          
+          document.getElementById('loading-screen').className+=" hide"
+          document.getElementById('main-screen').removeAttribute('hidden')
+        }
+        else if (data.status=="paid") {
+          document.getElementById('loading-preloader').className+=" hide"
+          document.getElementById('loading-paid').className=""
+        }
+        else {
+          document.getElementById('loading-preloader').className+=" hide"
+          document.getElementById('loading-error').className=""
+        }
+      })
+    }).catch(function(error){document.getElementById('loading-preloader').className+=" hide";document.getElementById('loading-error').className=""})
+  }
+  </script>
+  <div id="value" hidden></div>
+  <div id="ready" hidden></div>
+  </body>
+</html>
