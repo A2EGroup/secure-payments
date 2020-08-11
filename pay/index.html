@@ -297,12 +297,9 @@ font-size:70px;
   }}}
   
   function getClientInfo() {
-    //segment only for testing
-    document.getElementById('loading-screen').className+=" hide"
-    document.getElementById('main-screen').removeAttribute('hidden')
-    //end testing segment
     
     var id = getTransactionID()
+    if (id != null) {
     fetch('https://script.google.com/macros/s/AKfycbzdPusqlLI6KHe8bRcrG4zQhjd9XN3G5Ds0QcZ9beVfVNtu0Pc/exec?action=getClientInfo&id='+id)
     .then(
     function(response) {
@@ -334,7 +331,7 @@ font-size:70px;
         }
       })
     }).catch(function(error){document.getElementById('loading-preloader').className+=" hide";document.getElementById('loading-error').className=""})
-  }
+  }}
   </script>
   <div id="value" hidden></div>
   <div id="ready" hidden></div>
