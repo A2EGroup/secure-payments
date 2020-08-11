@@ -250,7 +250,8 @@ font-size:70px;
       return id
     }
     else {
-      //location.href="https://secure-payments.a2egroup.us"
+      location.href="https://secure-payments.a2egroup.us"
+      return null
     }
   }
   
@@ -264,6 +265,7 @@ font-size:70px;
     }
     else {
     var id = getTransactionID()
+    if (id != null) {
     fetch('https://script.google.com/macros/s/AKfycbzdPusqlLI6KHe8bRcrG4zQhjd9XN3G5Ds0QcZ9beVfVNtu0Pc/exec?action=getBill&id='+id+'&email='+email)
     .then(
     function(response) {
@@ -292,7 +294,7 @@ font-size:70px;
       });
     }
   ).catch(function(error){window.alert('Error loading data. Please refresh.')})
-  }}
+  }}}
   
   function getClientInfo() {
     //segment only for testing
